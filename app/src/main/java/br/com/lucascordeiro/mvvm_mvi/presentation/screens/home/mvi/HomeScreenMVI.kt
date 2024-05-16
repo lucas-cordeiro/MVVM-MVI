@@ -35,13 +35,15 @@ fun HomeScreenMVI(
 
     Content(
         state = state,
-        onAction = { action ->
-            when(action) {
-                is HomeActionMVI.PokemonDetail -> { /*navigate to details*/ }
+        onIntent = { intent ->
+            when (intent) {
+                is HomeIntentMVI.PokemonDetail -> { /*navigate to details*/
+                }
+
                 else -> Unit
             }
 
-            viewModel.onAction(action)
+            viewModel.onIntent(intent)
         }
     )
 }
@@ -51,7 +53,7 @@ fun HomeScreenMVI(
 @Composable
 private fun Content(
     state: HomeScreenUiStateMVI,
-    onAction: (HomeActionMVI) -> Unit,
+    onIntent: (HomeIntentMVI) -> Unit,
     modifier: Modifier = Modifier
 ) {
     LazyColumn(modifier = modifier) {
@@ -74,7 +76,7 @@ private fun Content(
         ) { pokemon ->
             PokemonCard(
                 pokemon = pokemon,
-                onAction = onAction,
+                onIntent = onIntent,
                 modifier = Modifier.animateItemPlacement()
             )
         }
@@ -84,12 +86,12 @@ private fun Content(
 @Composable
 private fun PokemonCard(
     pokemon: Pokemon,
-    onAction: (HomeActionMVI) -> Unit,
+    onIntent: (HomeIntentMVI) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier
-            .clickable { onAction(HomeActionMVI.PokemonDetail(pokemon)) }
+            .clickable { onIntent(HomeIntentMVI.PokemonDetail(pokemon)) }
     ) {
         AsyncImage(
             model = pokemon.pictureUrl,
@@ -103,7 +105,7 @@ private fun PokemonCard(
         )
 
         IconButton(
-            onClick = { onAction(HomeActionMVI.PokemonFavorite(pokemon)) }
+            onClick = { onIntent(HomeIntentMVI.PokemonFavorite(pokemon)) }
         ) {
             Icon(
                 imageVector = if (pokemon.isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
@@ -113,7 +115,7 @@ private fun PokemonCard(
         }
 
         IconButton(
-            onClick = { onAction(HomeActionMVI.PokemonArchive(pokemon)) }
+            onClick = { onIntent(HomeIntentMVI.PokemonArchive(pokemon)) }
         ) {
             Icon(
                 imageVector = Icons.Filled.Delete,

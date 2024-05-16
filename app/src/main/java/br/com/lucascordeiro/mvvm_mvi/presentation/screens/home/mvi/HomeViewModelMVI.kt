@@ -43,13 +43,13 @@ class HomeViewModelMVI(
         }
     }
 
-    fun onAction(action: HomeActionMVI) {
-        when(action){
-            is HomeActionMVI.PokemonFavorite -> {
-                favoritePokemon(action.pokemon)
+    fun onIntent(intent: HomeIntentMVI) {
+        when(intent){
+            is HomeIntentMVI.PokemonFavorite -> {
+                favoritePokemon(intent.pokemon)
             }
-            is HomeActionMVI.PokemonArchive -> {
-                archivePokemon(action.pokemon)
+            is HomeIntentMVI.PokemonArchive -> {
+                archivePokemon(intent.pokemon)
             }
             else -> Unit
         }
