@@ -2,17 +2,19 @@ package br.com.lucascordeiro.mvvm_mvi.data.remote.model
 
 import br.com.lucascordeiro.mvvm_mvi.domain.model.Pokemon
 import br.com.lucascordeiro.mvvm_mvi.domain.model.PokemonType
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class PokemonResponse(
     val id: Long,
     val name: String,
-    val pictureUrl: String,
+    val pictureUrl: String? = null,
     val types: List<String>
 ) {
     fun toPokemon() = Pokemon(
         id = id,
         name = name,
-        pictureUrl = pictureUrl,
+        pictureUrl = pictureUrl.orEmpty(),
         types = types.map { type -> mapType(type) }
     )
 

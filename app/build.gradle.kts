@@ -69,6 +69,9 @@ dependencies {
     implementation(libs.compose.coil)
     implementation(libs.lifecycle.runtime.compose)
 
+    //Utils
+    implementation(libs.serialization)
+
     //Test
     testImplementation(libs.test.junit)
     testImplementation(libs.test.coroutines)

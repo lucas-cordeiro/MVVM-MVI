@@ -11,6 +11,7 @@ junit = "4.13.2"
 coil = "2.4.0"
 coroutines = "1.7.3"
 runner = "1.5.2"
+serialization = "1.6.3"
 
 [libraries]
 #Android
@@ -35,6 +36,9 @@ koin-core = { group = "io.insert-koin", name = "koin-core", version.ref = "koin"
 koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koin" }
 koin-compose = { group = "io.insert-koin", name = "koin-androidx-compose", version.ref = "koin" }
 koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "koin" }
+
+#Utils
+serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 
 #Test
 test-junit = { group = "junit", name = "junit", version.ref = "junit" }

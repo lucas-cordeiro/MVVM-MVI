@@ -11,7 +11,7 @@ import org.koin.dsl.module
 
 object AppModules {
     private val remoteModule = module {
-        single<PokemonService> { PokemonServiceImpl() }
+        single<PokemonService> { PokemonServiceImpl(context = get()) }
     }
 
     private val repositoryModule = module {
