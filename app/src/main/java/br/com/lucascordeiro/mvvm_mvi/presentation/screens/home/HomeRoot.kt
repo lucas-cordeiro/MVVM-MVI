@@ -11,7 +11,7 @@ fun HomeRoot(
     modifier: Modifier = Modifier
 ) {
     Box(modifier = modifier) {
-//        HomeScreenMVVM()
-        HomeScreenMVI()
+        HomeScreenMVVM()
+//        HomeScreenMVI()
     }
 }

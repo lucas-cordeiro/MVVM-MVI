@@ -1,8 +1,12 @@
 package br.com.lucascordeiro.mvvm_mvi.presentation.screens.home.mvi
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -21,7 +25,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import br.com.lucascordeiro.mvvm_mvi.domain.model.Pokemon
 import br.com.lucascordeiro.mvvm_mvi.presentation.utils.capitalize
 import coil.compose.AsyncImage
@@ -56,7 +63,11 @@ private fun Content(
     onIntent: (HomeIntentMVI) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier = modifier) {
+    LazyColumn(
+        modifier = modifier,
+        contentPadding = PaddingValues(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp)
+    ) {
         item {
             if (state.isLoading) {
                 Box(
@@ -89,20 +100,49 @@ private fun PokemonCard(
     onIntent: (HomeIntentMVI) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    val color = pokemon.types.first().color
     Row(
         modifier = modifier
+            .fillMaxWidth()
+            .clip(MaterialTheme.shapes.medium)
+            .background(color.copy(alpha = 0.1f))
             .clickable { onIntent(HomeIntentMVI.PokemonDetail(pokemon)) }
+            .padding(4.dp)
     ) {
         AsyncImage(
             model = pokemon.pictureUrl,
             contentDescription = pokemon.name,
-            modifier = Modifier.size(100.dp)
+            modifier = Modifier.size(80.dp)
         )
 
-        Text(
-            text = "${pokemon.name.capitalize()}\n" +
-                    "Types: ${pokemon.types.joinToString { type -> type.name }}"
-        )
+        Column(
+            modifier = Modifier.weight(1f)
+        ) {
+            Text(
+                text = pokemon.name.capitalize(),
+                fontWeight = FontWeight.SemiBold,
+                fontSize = 18.sp
+            )
+
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.padding(top = 20.dp)
+            ) {
+                pokemon.types.forEach { type ->
+                    Box(
+                        modifier = Modifier
+                            .clip(MaterialTheme.shapes.small)
+                            .background(type.color.copy(alpha = 0.6f))
+                            .padding(horizontal = 4.dp, vertical = 2.dp)
+                    ) {
+                        Text(
+                            text = type.name.capitalize(),
+                            modifier = Modifier.padding(end = 4.dp)
+                        )
+                    }
+                }
+            }
+        }
 
         IconButton(
             onClick = { onIntent(HomeIntentMVI.PokemonFavorite(pokemon)) }
@@ -110,7 +150,7 @@ private fun PokemonCard(
             Icon(
                 imageVector = if (pokemon.isFavorite) Icons.Filled.Favorite else Icons.Filled.FavoriteBorder,
                 contentDescription = "Favorite",
-                tint = MaterialTheme.colorScheme.primary
+                tint = color
             )
         }
 
@@ -120,7 +160,7 @@ private fun PokemonCard(
             Icon(
                 imageVector = Icons.Filled.Delete,
                 contentDescription = "Archive",
-                tint = MaterialTheme.colorScheme.primary
+                tint = color
             )
         }
     }
