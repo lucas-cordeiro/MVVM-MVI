@@ -15,7 +15,8 @@ data class PokemonResponse(
         id = id,
         name = name,
         pictureUrl = pictureUrl.orEmpty(),
-        types = types.map { type -> mapType(type) }
+        types = types.map { type -> mapType(type) },
+        isFavorite = false
     )
 
     private fun mapType(type: String) : PokemonType {

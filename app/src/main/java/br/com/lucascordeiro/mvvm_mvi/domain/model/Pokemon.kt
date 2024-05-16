@@ -4,5 +4,6 @@ data class Pokemon(
     val id: Long,
     val name: String,
     val pictureUrl: String,
-    val types: List<PokemonType>
+    val types: List<PokemonType>,
+    val isFavorite: Boolean
 )

@@ -8,7 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import br.com.lucascordeiro.mvvm_mvi.presentation.screens.home.HomeScreen
+import br.com.lucascordeiro.mvvm_mvi.presentation.screens.home.HomeRoot
+import br.com.lucascordeiro.mvvm_mvi.presentation.screens.home.mvvm.HomeScreenMVVM
 import br.com.lucascordeiro.mvvm_mvi.presentation.theme.MVVM_MVITheme
 
 class MainActivity : ComponentActivity() {
@@ -18,7 +19,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             MVVM_MVITheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    HomeScreen(
+                    HomeRoot(
                         modifier = Modifier.padding(innerPadding)
                     )
                 }

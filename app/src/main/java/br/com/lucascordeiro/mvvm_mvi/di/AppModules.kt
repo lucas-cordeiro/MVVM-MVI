@@ -5,7 +5,8 @@ import br.com.lucascordeiro.mvvm_mvi.data.remote.service.PokemonServiceImpl
 import br.com.lucascordeiro.mvvm_mvi.data.repository.PokemonRepositoryImpl
 import br.com.lucascordeiro.mvvm_mvi.domain.repository.PokemonRepository
 import br.com.lucascordeiro.mvvm_mvi.domain.usecase.GetPokemonListUseCase
-import br.com.lucascordeiro.mvvm_mvi.presentation.screens.home.HomeViewModel
+import br.com.lucascordeiro.mvvm_mvi.presentation.screens.home.mvi.HomeViewModelMVI
+import br.com.lucascordeiro.mvvm_mvi.presentation.screens.home.mvvm.HomeViewModelMVVM
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -23,7 +24,8 @@ object AppModules {
     }
 
     private val viewModelModule = module {
-        viewModel { HomeViewModel(getPokemonListUseCase = get()) }
+        viewModel { HomeViewModelMVVM(getPokemonListUseCase = get()) }
+        viewModel { HomeViewModelMVI(getPokemonListUseCase = get()) }
     }
 
     val modules = listOf(
