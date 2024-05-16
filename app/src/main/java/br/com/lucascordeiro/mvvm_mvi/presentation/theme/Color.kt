@@ -1,4 +1,4 @@
-package br.com.lucascordeiro.mvvm_mvi.ui.theme
+package br.com.lucascordeiro.mvvm_mvi.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
