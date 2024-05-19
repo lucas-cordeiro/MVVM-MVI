@@ -5,5 +5,10 @@ data class Pokemon(
     val name: String,
     val pictureUrl: String,
     val types: List<PokemonType>,
-    val isFavorite: Boolean
-)
+    val isFavorite: Boolean,
+    val isArchived: Boolean
+) {
+    fun canArchive() : Boolean {
+        return !isFavorite
+    }
+}

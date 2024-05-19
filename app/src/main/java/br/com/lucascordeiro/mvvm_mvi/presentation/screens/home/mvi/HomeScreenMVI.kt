@@ -44,7 +44,8 @@ fun HomeScreenMVI(
         state = state,
         onIntent = { intent ->
             when (intent) {
-                is HomeIntentMVI.PokemonDetail -> { /*navigate to details*/
+                is HomeIntentMVI.PokemonDetail -> {
+                    /*navigate to details*/
                 }
 
                 else -> Unit

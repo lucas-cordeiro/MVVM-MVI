@@ -39,20 +39,17 @@ class HomeViewModelMVVM(
     }
 
     fun clickedFavoritePokemon(pokemon: Pokemon) {
-        viewModelScope.launch {
-            pokemons = pokemons.map {
-                if (it.id == pokemon.id) {
-                    it.copy(isFavorite = !it.isFavorite)
-                } else {
-                    it
-                }
+        pokemons = pokemons.map {
+            if (it.id == pokemon.id) {
+                it.copy(isFavorite = !it.isFavorite)
+            } else {
+                it
             }
         }
     }
 
     fun clickedArchivePokemon(pokemon: Pokemon) {
-        viewModelScope.launch {
-            pokemons = pokemons.filter { it.id != pokemon.id }
-        }
+        if(!pokemon.canArchive()) return
+        pokemons = pokemons.filter { it.id != pokemon.id }
     }
 }

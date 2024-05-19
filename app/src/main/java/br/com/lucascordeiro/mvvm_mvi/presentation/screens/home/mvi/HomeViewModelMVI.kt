@@ -44,34 +44,34 @@ class HomeViewModelMVI(
     }
 
     fun onIntent(intent: HomeIntentMVI) {
-        when(intent){
+        when (intent) {
             is HomeIntentMVI.PokemonFavorite -> {
                 favoritePokemon(intent.pokemon)
             }
+
             is HomeIntentMVI.PokemonArchive -> {
                 archivePokemon(intent.pokemon)
             }
+
             else -> Unit
         }
     }
 
     private fun favoritePokemon(pokemon: Pokemon) {
-        viewModelScope.launch {
-            val pokemons = state.pokemons.map {
-                if (it.id == pokemon.id) {
-                    it.copy(isFavorite = !it.isFavorite)
-                } else {
-                    it
-                }
+        val pokemons = state.pokemons.map {
+            if (it.id == pokemon.id) {
+                it.copy(isFavorite = !it.isFavorite)
+            } else {
+                it
             }
-            state = state.copy(pokemons = pokemons)
         }
+        state = state.copy(pokemons = pokemons)
     }
 
     private fun archivePokemon(pokemon: Pokemon) {
-        viewModelScope.launch {
-           val pokemons = state.pokemons.filter { it.id != pokemon.id }
-              state = state.copy(pokemons = pokemons)
-        }
+        if(!pokemon.canArchive()) return
+
+        val pokemons = state.pokemons.filter { it.id != pokemon.id }
+        state = state.copy(pokemons = pokemons)
     }
 }
